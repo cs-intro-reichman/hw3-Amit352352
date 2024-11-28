@@ -7,7 +7,7 @@ public class LoanCalc {
 	// Gets the loan data and computes the periodical payment.
     // Expects to get three command-line arguments: loan amount (double),
     // interest rate (double, as a percentage), and number of payments (int).  
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	 	
 		// Gets the loan data
 		double loan = Double.parseDouble(args[0]);
 		double rate = Double.parseDouble(args[1]);
@@ -23,14 +23,38 @@ public class LoanCalc {
 		System.out.print("\nPeriodical payment, using bi-section search: ");
 		System.out.println((int) bisectionSolver(loan, rate, n, epsilon));
 		System.out.println("number of iterations: " + iterationCounter);
+		endBalance(100000,5,10,10000);
 	}
+
+
+
+
+
 
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
-		// Replace the following statement with your code
-		return 0;
+		//System.out.println((int) (5+0.7));
+		double PrintLoan = 0;
+		for (int i = 0; i < n; i++) {
+			loan = (loan - payment)*(1.0+rate/100.0);
+			//System.out.println(loan);
+			double newloan = loan- (int) loan;
+			//System.err.println(newloan);
+			if ((newloan) >= 0.5) { //rounds up
+				PrintLoan =  (Math.ceil(loan));
+				System.out.println(PrintLoan);
+			}
+			else { //rounds up
+				PrintLoan = (int) loan;
+				System.out.println(PrintLoan);
+			}
+		}
+		return PrintLoan;
 	}
+
+
+
 	
 	// Uses sequential search to compute an approximation of the periodical payment
 	// that will bring the ending balance of a loan close to 0.
@@ -42,6 +66,10 @@ public class LoanCalc {
 		return 0;
     }
     
+
+
+
+
     // Uses bisection search to compute an approximation of the periodical payment 
 	// that will bring the ending balance of a loan close to 0.
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
